@@ -1,0 +1,119 @@
+Let's go through the code step by step and explain its functionality:
+
+1. **Imports and Setup:**
+    ```python
+    from fastapi import FastAPI, Form, Request
+    from fastapi.templating import Jinja2Templates
+    import random
+
+    app = FastAPI()
+    templates = Jinja2Templates(directory="templates")
+    ```
+
+    - We import necessary modules from FastAPI and other standard libraries.
+    - `FastAPI` is the main framework for building the web application.
+    - `Jinja2Templates` is used for rendering HTML templates.
+    - `random` is used for generating random numbers.
+
+2. **WordSearchGenerator Class:**
+    ```python
+    class WordSearchGenerator:
+        """
+        Word Search Generator class that generates word search puzzles.
+        """
+
+        def __init__(self, size):
+            """
+            Initialize the WordSearchGenerator.
+
+            Args:
+                size (int): Size of the word search grid.
+            """
+            # ...
+
+        def insert_word(self, word):
+            """
+            Insert a word into the word search grid.
+
+            Args:
+                word (str): The word to be inserted.
+
+            Returns:
+                bool: True if the word was successfully inserted, False otherwise.
+            """
+            # ...
+
+        def fill_empty_cells(self):
+            """
+            Fill empty cells in the word search grid with random letters.
+            """
+            # ...
+
+        def generate(self, words):
+            """
+            Generate a word search puzzle.
+
+            Args:
+                words (list): List of words to insert into the grid.
+
+            Raises:
+                ValueError: If input words are not valid.
+
+            Returns:
+                None
+            """
+            # ...
+    ```
+
+    - The `WordSearchGenerator` class encapsulates the logic for generating word search puzzles.
+    - The `__init__` method initializes the generator with the grid size.
+    - The `insert_word` method attempts to insert a word into the grid.
+    - The `fill_empty_cells` method fills empty cells with random letters.
+    - The `generate` method generates the puzzle by inserting words into the grid.
+
+3. **Web Interface:**
+    ```python
+    @app.get("/", response_class=HTMLResponse)
+    async def read_root(request: Request):
+        """
+        Render the index page.
+
+        Args:
+            request (Request): The incoming request.
+
+        Returns:
+            TemplateResponse: The index page template.
+        """
+        # ...
+
+    @app.post("/generate")
+    async def generate(request: Request, words: str = Form(...), size: int = Form(...)):
+        """
+        Generate and display a word search puzzle.
+
+        Args:
+            request (Request): The incoming request.
+            words (str): Comma-separated list of words.
+            size (int): Size of the word search grid.
+
+        Returns:
+            TemplateResponse: The word search page template with the generated grid or an error message.
+        """
+        # ...
+    ```
+
+    - These are FastAPI endpoints that handle HTTP requests from the user interface.
+    - `read_root` renders the index page.
+    - `generate` generates and displays the word search puzzle based on user input.
+
+4. **Running the Application:**
+    ```python
+    if __name__ == "__main__":
+        import uvicorn
+        uvicorn.run(app, host="0.0.0.0", port=8000)
+    ```
+
+    - This section checks if the script is being run directly (not imported as a module).
+    - If so, it starts the FastAPI application using the `uvicorn` ASGI server.
+
+The application's main purpose is to provide a web-based interface for generating and displaying word search puzzles. Users can input a comma-separated list of words and the size of the grid, and the application generates the puzzle accordingly. The code is structured to be modular, organized, and follows the principles of a FastAPI-based web application.
